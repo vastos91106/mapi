@@ -9,7 +9,7 @@ namespace MAPI.Provider
 {
     public class AuthProvider
     {
-        public string GetKey(string id)
+        public string SetKey(string id)
         {
             var cache = MemoryCache.Default;
 
@@ -21,7 +21,7 @@ namespace MAPI.Provider
             CacheItemPolicy policy = new CacheItemPolicy();
             policy.AbsoluteExpiration = DateTimeOffset.Now.AddDays(7);
 
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var stringChars = new char[8];
             var random = new Random();
 
@@ -37,9 +37,9 @@ namespace MAPI.Provider
             return finalString;
         }
 
-        public bool IsAuthorize(string key)
+        public object GetKey(string key)
         {
-         return MemoryCache.Default.Any(x=>x.Key=="Session" && (string) x.Value==key);
+         return MemoryCache.Default.FirstOrDefault(x=>x.Key==key).Value;
         }
     }
 }

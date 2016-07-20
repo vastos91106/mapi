@@ -9,5 +9,7 @@ namespace MAPI.Models
     public class  Context :  DbContext
     {
         public virtual  DbSet<Account> Accounts { get; set; }
+
+        public virtual DbSet<AccountType> AccountTypes { get; set; }
     }
 }
