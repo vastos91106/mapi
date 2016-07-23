@@ -1,3 +1,6 @@
+C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\obj\Debug\MAPI.Migrations.init.resources
+C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\obj\Debug\MAPI.Migrations.fixget.resources
+C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\obj\Debug\MAPI.csproj.GenerateResource.Cache
 C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\bin\ApplicationInsights.config
 C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\bin\roslyn\csc.exe
 C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -87,8 +90,5 @@ C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\bin\Microsoft.Owin.
 C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\bin\System.Web.Http.Owin.xml
-C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\obj\Debug\MAPI.Migrations.init.resources
-C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\obj\Debug\MAPI.csproj.GenerateResource.Cache
 C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\obj\Debug\MAPI.dll
 C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\obj\Debug\MAPI.pdb
-C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\obj\Debug\MAPI.Migrations.fixget.resources
