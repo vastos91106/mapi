@@ -1,11 +1,11 @@
 ﻿#define DEBUG
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Http.Results;
 using MAPI.Models;
@@ -49,48 +49,33 @@ namespace MAPI.Controllers
                     request = new RestRequest(Method.GET);
                     request.AddHeader("Authorization", $"Bearer {model.token}");
 
-                    using (var transaction = _context.Database.BeginTransaction())
+                    var data = client.Execute<dynamic>(request).Data;
+
+                    var account = new Account()
                     {
-                        try
-                        {
-                            var data = client.Execute<dynamic>(request).Data;
+                        Location = data["locale"],
+                        Name = data["name"]
+                    };
 
-                            var account = new Account()
-                            {
-                                Location = data["locale"],
-                                Name = data["name"]
-                            };
+                    _context.Accounts.Add(account);
+                    _context.SaveChanges();
 
-                            _context.Accounts.Add(account);
+                    _context.AccountTypes.Add(new AccountType()
+                    {
+                        AccountID = account.ID,
+                        AuthType = 1,
+                        ID = UserId,
+                    });
 
-                            _context.SaveChanges();
+                    _context.SaveChanges();
 
-                            _context.AccountTypes.Add(new AccountType()
-                            {
-                                AccountID = account.ID,
-                                AuthType = 1,
-                                ID = UserId,
-                            });
-
-                            _context.SaveChanges();
-
-                            transaction.Commit();
-
-                            if (data["picture"] != null)
-                            {
-                                client = new RestClient(data["picture"]);
-                                client.DownloadData(request).SaveAs(HttpContext.Current.Server.MapPath($"~/files/{account.ID}.jpg"));
-                            }
-
-                            sessionKey = new AuthProvider().SetKey(account.ID.ToString());
-
-                        }
-                        catch (Exception ex)
-                        {
-                            transaction.Rollback();
-                            return InternalServerError(ex);
-                        }
+                    if (data["picture"] != null)
+                    {
+                        client = new RestClient(data["picture"]);
+                        client.DownloadData(request).SaveAs(HttpContext.Current.Server.MapPath($"~/files/{account.ID}.jpg"));
                     }
+
+                    sessionKey = new AuthProvider().SetKey(account.ID.ToString());
                 }
 
                 return Ok(sessionKey);
