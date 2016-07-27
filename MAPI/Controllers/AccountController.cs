@@ -1,11 +1,17 @@
 ﻿#define DEBUG
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Web;
+using System.Web.Helpers;
 using System.Web.Http;
+using System.Web.Http.Results;
 using MAPI.Models;
 using MAPI.Provider;
 using RestSharp;
+using RestSharp.Extensions;
 
 namespace MAPI.Controllers
 {
@@ -16,18 +22,21 @@ namespace MAPI.Controllers
         [Route("account/")]
         public IHttpActionResult Post(AuthModel model)
         {
+            if (!ModelState.IsValid)
+                return BadRequest("token required");
+
             var client = new RestClient("https://www.googleapis.com/oauth2/v1/");
             var request = new RestRequest("tokeninfo?", Method.GET);
-            request.AddParameter("access_token", model.Token);
+            request.AddParameter("access_token", model.token);
 
             var response = client.Execute<dynamic>(request);
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 string UserId = response.Data["user_id"];
-                
+
                 var sessionKey = string.Empty;
-             
+
                 if (_context.AccountTypes.Any(x => x.ID == UserId && x.AuthType == 1))
                 {
                     sessionKey =
@@ -36,7 +45,17 @@ namespace MAPI.Controllers
                 }
                 else
                 {
-                    var account = new Account();
+                    client = new RestClient("https://www.googleapis.com/userinfo/v2/me");
+                    request = new RestRequest(Method.GET);
+                    request.AddHeader("Authorization", $"Bearer {model.token}");
+
+                    var data = client.Execute<dynamic>(request).Data;
+
+                    var account = new Account()
+                    {
+                        Location = data["locale"],
+                        Name = data["name"]
+                    };
 
                     _context.Accounts.Add(account);
                     _context.SaveChanges();
@@ -45,14 +64,22 @@ namespace MAPI.Controllers
                     {
                         AccountID = account.ID,
                         AuthType = 1,
-                        ID = UserId
+                        ID = UserId,
                     });
+
                     _context.SaveChanges();
+
+                    if (data["picture"] != null)
+                    {
+                        client = new RestClient(data["picture"]);
+                        client.DownloadData(request).SaveAs(HttpContext.Current.Server.MapPath($"~/files/{account.ID}.jpg"));
+                    }
+
                     sessionKey = new AuthProvider().SetKey(account.ID.ToString());
                 }
 
                 return Ok(sessionKey);
-                }
+            }
             else
             {
                 return BadRequest("Token Invalid");
@@ -64,21 +91,71 @@ namespace MAPI.Controllers
         {
             var auth = Request.Headers.Authorization?.Scheme;
 
-            var key = new AuthProvider().GetKey(auth);
-            if (key==null)
+            var id = new AuthProvider().GetKey(auth);
+            if (id == null)
             {
                 return Unauthorized();
             }
             else
             {
-                return Ok(key);
+                var userId = int.Parse(id.ToString());
+                var user = _context.Accounts.SingleOrDefault(x => x.ID == userId);
+
+                return Ok(new
+                {
+                    id = user.ID,
+                    authType = "Google",
+                    name = user.Name,
+                    avatar = Url.Link("GetUserAvatar", null)
+                });
             }
+        }
+
+        [Route("account/avatar/", Name = "GetUserAvatar")]
+        public IHttpActionResult GetAvatar()
+        {
+            var auth = Request.Headers.Authorization?.Scheme;
+
+            var key = new AuthProvider().GetKey(auth);
+            if (key == null)
+            {
+                return Unauthorized();
+            }
+            key = 4;
+            var id = int.Parse(key.ToString());
+
+            var path = HttpContext.Current.Server.MapPath($"~/files/{id}.jpg");
+
+            HttpResponseMessage result;
+            if (!File.Exists(path))
+            {
+                result = new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.NotFound,
+                    Content = new StringContent("File not found")
+                };
+                return new ResponseMessageResult(result);
+            }
+
+            HttpContent content = new StreamContent(new FileStream(path: path, mode: FileMode.Open, access: FileAccess.Read));
+            content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+            {
+                FileName = $"avatar{id}.jpg"
+            };
+
+            result = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = content
+            };
+
+            return new ResponseMessageResult(result);
         }
 
         public class AuthModel
         {
             [Required]
-            public string Token;
+            public string token;
         }
     }
 }

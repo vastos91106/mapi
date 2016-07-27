@@ -7,6 +7,8 @@ namespace MAPI.Models
     {
         public string Location { get; set; }
 
+        public string Name { get; set; }
+
         public int ID { get; set; }
 
         public ICollection<AccountType> AccountTypes;
@@ -23,13 +25,4 @@ namespace MAPI.Models
         public int AuthType { get; set; }
     }
 
-    public class Login
-    {
-        [EmailAddress]
-        [Required]
-        public string Email { get; set; }
-
-        [Required]
-        public string Password { get; set; }
-    }
 }

@@ -219,6 +219,10 @@
     <Compile Include="Migrations\201607201848512_fixget.Designer.cs">
       <DependentUpon>201607201848512_fixget.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607271033421_AddUserDetails.cs" />
+    <Compile Include="Migrations\201607271033421_AddUserDetails.Designer.cs">
+      <DependentUpon>201607271033421_AddUserDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Context.cs" />
@@ -226,10 +230,7 @@
     <Compile Include="Provider\AuthProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -243,15 +244,12 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Files\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
@@ -261,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607201848512_fixget.resx">
       <DependentUpon>201607201848512_fixget.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607271033421_AddUserDetails.resx">
+      <DependentUpon>201607271033421_AddUserDetails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
