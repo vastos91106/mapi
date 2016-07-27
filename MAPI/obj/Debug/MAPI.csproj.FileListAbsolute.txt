@@ -187,3 +187,5 @@ C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\obj\Debug\MAPI.csproj.Generat
 C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\obj\Debug\MAPI.dll
 C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\obj\Debug\MAPI.pdb
 C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\obj\Debug\MAPI.Migrations.AddUserDetails.resources
+C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\obj\Debug\MAPI.csprojResolveAssemblyReference.cache
+C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\obj\Debug\MAPI.Migrations.AddUserDetails.resources

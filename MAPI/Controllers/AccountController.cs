@@ -49,6 +49,7 @@ namespace MAPI.Controllers
                     request = new RestRequest(Method.GET);
                     request.AddHeader("Authorization", $"Bearer {model.token}");
 
+                    _context.Configuration.AutoDetectChangesEnabled = false;
                     using (var transaction = _context.Database.BeginTransaction())
                     {
                         try
