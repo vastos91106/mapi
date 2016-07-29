@@ -29,6 +29,9 @@ namespace MAPI.Provider
 
         public Account GetKey(string key)
         {
+            if (string.IsNullOrEmpty(key))
+                return null;
+
             using (var redis = new RedisClient("188.227.17.24"))
             {
                 var session = redis.As<Account>();
