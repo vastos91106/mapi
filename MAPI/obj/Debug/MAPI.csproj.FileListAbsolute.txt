@@ -189,3 +189,13 @@ C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\obj\Debug\MAPI.pdb
 C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\obj\Debug\MAPI.Migrations.AddUserDetails.resources
 C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\obj\Debug\MAPI.csprojResolveAssemblyReference.cache
 C:\Users\dev\documents\visual studio 2015\Projects\MAPI\MAPI\obj\Debug\MAPI.Migrations.AddUserDetails.resources
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\Dapper.dll
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\ServiceStack.Common.dll
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\ServiceStack.Interfaces.dll
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\ServiceStack.Redis.dll
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\ServiceStack.Text.dll
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\StackExchange.Redis.dll
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\ServiceStack.Common.xml
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\ServiceStack.Redis.xml
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\ServiceStack.Text.xml
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\StackExchange.Redis.pdb
