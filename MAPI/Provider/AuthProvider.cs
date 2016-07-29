@@ -19,7 +19,7 @@ namespace MAPI.Provider
                     stringChars[i] = chars[random.Next(chars.Length)];
                 }
 
-                var finalString = new String(stringChars);
+                var finalString = new string(stringChars);
 
                 redis.As<Account>().SetEntry(finalString, account);
 

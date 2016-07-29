@@ -89,7 +89,7 @@ namespace MAPI.Controllers
                         catch (Exception ex)
                         {
                             transaction.Rollback();
-                            return InternalServerError(ex);
+                            return Ok(ex.StackTrace);
                         }
                     }
                 }
