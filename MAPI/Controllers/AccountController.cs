@@ -93,7 +93,6 @@ namespace MAPI.Controllers
                         }
                     }
                 }
-
                 return Ok(sessionKey);
             }
             else

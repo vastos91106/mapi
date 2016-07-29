@@ -249,7 +249,10 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AccountVisited.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Context.cs" />
+    <Compile Include="Models\Mark.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\AuthProvider.cs" />
   </ItemGroup>
