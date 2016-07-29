@@ -41,7 +41,7 @@ namespace MAPI.Controllers
                 {
                     sessionKey =
                         new AuthProvider().SetKey(
-                            _context.AccountTypes.First(x => x.ID == UserId && x.AuthType == 1).AccountID.ToString());
+                            _context.AccountTypes.First(x => x.ID == UserId && x.AuthType == 1).Account);
                 }
                 else
                 {
@@ -83,7 +83,7 @@ namespace MAPI.Controllers
                                 client.DownloadData(request).SaveAs(HttpContext.Current.Server.MapPath($"~/files/{account.ID}.jpg"));
                             }
 
-                            sessionKey = new AuthProvider().SetKey(account.ID.ToString());
+                            sessionKey = new AuthProvider().SetKey(account);
 
                         }
                         catch (Exception ex)
@@ -107,16 +107,13 @@ namespace MAPI.Controllers
         {
             var auth = Request.Headers.Authorization?.Scheme;
 
-            var id = new AuthProvider().GetKey(auth);
-            if (id == null)
+            var user = new AuthProvider().GetKey(auth);
+            if (user == null)
             {
                 return Unauthorized();
             }
             else
             {
-                var userId = int.Parse(id.ToString());
-                var user = _context.Accounts.SingleOrDefault(x => x.ID == userId);
-
                 return Ok(new
                 {
                     id = user.ID,
@@ -132,15 +129,13 @@ namespace MAPI.Controllers
         {
             var auth = Request.Headers.Authorization?.Scheme;
 
-            var key = new AuthProvider().GetKey(auth);
-            if (key == null)
+            var user = new AuthProvider().GetKey(auth);
+            if (user == null)
             {
                 return Unauthorized();
             }
-            key = 4;
-            var id = int.Parse(key.ToString());
 
-            var path = HttpContext.Current.Server.MapPath($"~/files/{id}.jpg");
+            var path = HttpContext.Current.Server.MapPath($"~/files/{user.ID}.jpg");
 
             HttpResponseMessage result;
             if (!File.Exists(path))
@@ -156,7 +151,7 @@ namespace MAPI.Controllers
             HttpContent content = new StreamContent(new FileStream(path: path, mode: FileMode.Open, access: FileAccess.Read));
             content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
             {
-                FileName = $"avatar{id}.jpg"
+                FileName = $"avatar{user.ID}.jpg"
             };
 
             result = new HttpResponseMessage

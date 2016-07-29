@@ -1,45 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Caching;
-using System.Web;
 using MAPI.Models;
+using ServiceStack.Redis;
 
 namespace MAPI.Provider
 {
     public class AuthProvider
     {
-        public string SetKey(string id)
+        public string SetKey(Account account)
         {
-            var cache = MemoryCache.Default;
-
-            if (cache.Any(x => (string) x.Value == id))
+            using (var redis = new RedisClient("188.227.17.24"))
             {
-                return cache.FirstOrDefault(x => (string) x.Value == id).Key;
+                const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                var stringChars = new char[8];
+                var random = new Random();
+
+                for (var i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var finalString = new String(stringChars);
+
+                redis.As<Account>().SetEntry(finalString, account);
+
+                return finalString;
             }
-
-            CacheItemPolicy policy = new CacheItemPolicy();
-            policy.AbsoluteExpiration = DateTimeOffset.Now.AddDays(7);
-
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            var stringChars = new char[8];
-            var random = new Random();
-
-            for (int i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-
-            var finalString = new String(stringChars);
-
-            cache.Add(new CacheItem(finalString, id),policy);
-
-            return finalString;
         }
 
-        public object GetKey(string key)
+        public Account GetKey(string key)
         {
-         return MemoryCache.Default.FirstOrDefault(x=>x.Key==key).Value;
+            using (var redis = new RedisClient("188.227.17.24"))
+            {
+                var session = redis.As<Account>();
+                return session.GetValue(key);
+            }
         }
     }
 }
