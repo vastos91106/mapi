@@ -81,6 +81,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NGeoHash.Portable, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NGeoHash.Portable.1.0.0\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\NGeoHash.Portable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
       <Private>True</Private>
@@ -232,6 +236,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\MarkController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -246,6 +251,10 @@
     <Compile Include="Migrations\201607271033421_AddUserDetails.cs" />
     <Compile Include="Migrations\201607271033421_AddUserDetails.Designer.cs">
       <DependentUpon>201607271033421_AddUserDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608121559328_addMark.cs" />
+    <Compile Include="Migrations\201608121559328_addMark.Designer.cs">
+      <DependentUpon>201608121559328_addMark.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
@@ -289,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607271033421_AddUserDetails.resx">
       <DependentUpon>201607271033421_AddUserDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608121559328_addMark.resx">
+      <DependentUpon>201608121559328_addMark.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

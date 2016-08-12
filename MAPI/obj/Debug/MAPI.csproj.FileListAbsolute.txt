@@ -199,3 +199,6 @@ C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\ServiceStack.Common.xml
 C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\ServiceStack.Redis.xml
 C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\ServiceStack.Text.xml
 C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\StackExchange.Redis.pdb
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\NGeoHash.Portable.dll
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\bin\NGeoHash.Portable.pdb
+C:\Users\igor.natalenko\Documents\GitHub\mapi\MAPI\obj\Debug\MAPI.Migrations.addMark.resources

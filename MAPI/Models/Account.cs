@@ -12,6 +12,8 @@ namespace MAPI.Models
         public int ID { get; set; }
 
         public ICollection<AccountType> AccountTypes;
+
+        public ICollection<Mark> Marks { get; set; }
     }
 
     public class AccountType
