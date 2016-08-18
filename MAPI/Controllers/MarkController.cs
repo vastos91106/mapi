@@ -258,10 +258,10 @@ namespace MAPI.Controllers
             public string name;
             public string avatar;
             [System.ComponentModel.DataAnnotations.Required]
-            [Range(double.MinValue, double.MaxValue)]
+            [System.ComponentModel.DataAnnotations.Range(double.MinValue, double.MaxValue)]
             public double lat;
             [System.ComponentModel.DataAnnotations.Required]
-            [Range(double.MinValue, double.MaxValue)]
+            [System.ComponentModel.DataAnnotations.Range(double.MinValue, double.MaxValue)]
             public double lon;
             [System.ComponentModel.DataAnnotations.Required]
             public string description;
