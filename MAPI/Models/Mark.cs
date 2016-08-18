@@ -7,15 +7,15 @@ namespace MAPI.Models
     {
         public int ID { get; set; }
 
-        [Required]
+        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
 
-        public string Avatar { get; set; }
-
-        [Required]
+        [System.ComponentModel.DataAnnotations.Required]
+        [Range(double.MinValue, double.MaxValue)]
         public double Lat { get; set; }
 
-        [Required]
+        [System.ComponentModel.DataAnnotations.Required]
+        [Range(double.MinValue, double.MaxValue)]
         public double Lon { get; set; }
 
         public float Radius { get; set; }

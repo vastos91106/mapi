@@ -8,6 +8,5 @@ namespace MAPI.Models
     public class AccountVisited
     {
         public int AccountVisitedID { get; set; }
-
     }
 }

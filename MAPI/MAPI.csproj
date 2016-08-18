@@ -256,6 +256,14 @@
     <Compile Include="Migrations\201608121559328_addMark.Designer.cs">
       <DependentUpon>201608121559328_addMark.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608171529211_t.cs" />
+    <Compile Include="Migrations\201608171529211_t.Designer.cs">
+      <DependentUpon>201608171529211_t.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608181132187_removeAvatar.cs" />
+    <Compile Include="Migrations\201608181132187_removeAvatar.Designer.cs">
+      <DependentUpon>201608181132187_removeAvatar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountVisited.cs" />
@@ -283,7 +291,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Files\" />
+    <Folder Include="Files\Mark\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -301,6 +309,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608121559328_addMark.resx">
       <DependentUpon>201608121559328_addMark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608171529211_t.resx">
+      <DependentUpon>201608171529211_t.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608181132187_removeAvatar.resx">
+      <DependentUpon>201608181132187_removeAvatar.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
