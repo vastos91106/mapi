@@ -31,36 +31,44 @@ namespace MAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var viewModel = new List<object>();
-
-            using (var redis = new RedisClient("212.116.121.56"))
+            try
             {
-                var result = redis.GeoRadius("marks", model.lon, model.lat, model.radius, RedisGeoUnit.Kilometers);
+                var viewModel = new List<object>();
 
-                foreach (var redisGeoResult in result)
+                using (var redis = new RedisClient("212.116.121.56"))
                 {
-                    var detail =
-                        redis.As<Mark>()
-                            .GetValue(redisGeoResult.Member);
 
-                    var mark = new
+                    var result = redis.GeoRadius("marks", model.lon, model.lat, model.radius, RedisGeoUnit.Kilometers);
+
+                    foreach (var redisGeoResult in result)
                     {
-                        lat = detail.Lat,
-                        lon = detail.Lon,
-                        name = detail.Name,
-                        avatar = Url.Link("GetMarkAvatar", new { id = detail.ID }),
-                        rating = detail.Rating,
-                        description = detail.Description
-                    };
+                        var detail =
+                            redis.As<Mark>()
+                                .GetValue(redisGeoResult.Member);
 
-                    viewModel.Add(mark);
+                        var mark = new
+                        {
+                            lat = detail.Lat,
+                            lon = detail.Lon,
+                            name = detail.Name,
+                            avatar = Url.Link("GetMarkAvatar", new { id = detail.ID }),
+                            rating = detail.Rating,
+                            description = detail.Description
+                        };
+
+                        viewModel.Add(mark);
+                    }
                 }
+
+                if (!viewModel.Any())
+                    return NotFound();
+
+                return Ok(viewModel);
             }
-
-            if (!viewModel.Any())
-                return NotFound();
-
-            return Ok(viewModel);
+            catch (Exception e)
+            {
+                return BadRequest("invalid search params");
+            }
         }
 
         [Route("mark/{id}")]
