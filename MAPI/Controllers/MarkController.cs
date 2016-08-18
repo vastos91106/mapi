@@ -114,13 +114,11 @@ namespace MAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-
-
             var mark = new Mark
             {
                 Description = model.description,
                 Lat = model.lat,
-                Lon = model.lot,
+                Lon = model.lon,
                 Name = model.name,
                 Radius = 1,
                 Rating = 0,
@@ -264,7 +262,7 @@ namespace MAPI.Controllers
             public double lat;
             [System.ComponentModel.DataAnnotations.Required]
             [Range(double.MinValue, double.MaxValue)]
-            public double lot;
+            public double lon;
             [System.ComponentModel.DataAnnotations.Required]
             public string description;
         }
