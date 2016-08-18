@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 using System.Web.Http.Results;
 using MAPI.Models;
 using MAPI.Provider;
-using ServiceStack.DataAnnotations;
+using MAPI.ViewModels;
 using ServiceStack.Redis;
 
 namespace MAPI.Controllers
@@ -32,7 +35,7 @@ namespace MAPI.Controllers
 
             using (var redis = new RedisClient("212.116.121.56"))
             {
-                var result = redis.GeoRadius(key: "marks", longitude: model.lon, latitude: model.lat, radius: model.radius, unit: RedisGeoUnit.Kilometers);
+                var result = redis.GeoRadius("marks", model.lon, model.lat, model.radius, RedisGeoUnit.Kilometers);
 
                 foreach (var redisGeoResult in result)
                 {
@@ -109,6 +112,15 @@ namespace MAPI.Controllers
             if (user == null)
             {
                 return Unauthorized();
+            }
+
+            if (model.lat == 0)
+            {
+                ModelState.AddModelError(nameof(model.lat), "invalid range");
+            }
+            if (model.lon == 0)
+            {
+                ModelState.AddModelError(nameof(model.lon), "invalid range");
             }
 
             if (!ModelState.IsValid)
@@ -236,8 +248,8 @@ namespace MAPI.Controllers
                 return new ResponseMessageResult(result);
             }
 
-            HttpContent content = new StreamContent(new FileStream(path: path, mode: FileMode.Open, access: FileAccess.Read));
-            content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+            HttpContent content = new StreamContent(new FileStream(path, FileMode.Open, FileAccess.Read));
+            content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
             {
                 FileName = $"mark{id}.jpg"
             };
@@ -251,30 +263,5 @@ namespace MAPI.Controllers
             return new ResponseMessageResult(result);
         }
 
-
-        public class MarkViewModel
-        {
-            [System.ComponentModel.DataAnnotations.Required]
-            public string name;
-            public string avatar;
-            [System.ComponentModel.DataAnnotations.Required]
-            [System.ComponentModel.DataAnnotations.Range(double.MinValue, double.MaxValue)]
-            public double lat;
-            [System.ComponentModel.DataAnnotations.Required]
-            [System.ComponentModel.DataAnnotations.Range(double.MinValue, double.MaxValue)]
-            public double lon;
-            [System.ComponentModel.DataAnnotations.Required]
-            public string description;
-        }
-
-        public class GeoPoint
-        {
-            [System.ComponentModel.DataAnnotations.Required]
-            public double lat;
-            [System.ComponentModel.DataAnnotations.Required]
-            public double lon;
-            [System.ComponentModel.DataAnnotations.Required]
-            public double radius;
-        }
     }
 }

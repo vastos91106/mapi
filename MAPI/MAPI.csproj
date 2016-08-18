@@ -272,6 +272,7 @@
     <Compile Include="Models\Mark.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\AuthProvider.cs" />
+    <Compile Include="ViewModels\Mark.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

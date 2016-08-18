@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using ServiceStack.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace MAPI.Models
 {
@@ -7,7 +8,7 @@ namespace MAPI.Models
     {
         public int ID { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required]
+        [Required]
         public string Name { get; set; }
 
         [System.ComponentModel.DataAnnotations.Required]
